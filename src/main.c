@@ -5,11 +5,12 @@ void APP_1ms(void);
 
 uint8_t led = 1;
 uint8_t brightness = 0;
-uint16_t counter = 100;
+uint16_t counter = 80;
 
 
 
 int main(void) {
+
 
 	BSP_Init();
 
@@ -19,27 +20,30 @@ int main(void) {
 		if(!counter)
 		{
 			Leds_OFF();
-			counter = 100;
+			counter = 80;
 
 			if(Get_SW_State())
 			{
-				led++;
+				if(led>4)
+					led=1;
+				else
+					led++;
 				if(brightness <= 100)
 					brightness++;
 			}
 
 			else
 			{
-				led--;
+				if(led<1)
+					led=4;
+				else
+					led--;
 				if(brightness > 0)
 					brightness--;
 			}
 		}
 
-			if(led>4)
-				led=1;
-			if(led<1)
-				led=4;
+
 		switch (led)
 		{
 			case 1:
